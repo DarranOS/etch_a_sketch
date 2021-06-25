@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="reset()" >Reset</button>
+    <div id="container"></div>
+    <script>
+    
+        const containerDiv = document.querySelector("#container");
+        let cells;
+        let cellCount = 36;
+        let resetTiles = 6;
+
+        function gene(cellCount, resetTiles) {
+            for (i = 1; i <= cellCount; i++) {
+                let newDiv = document.createElement(`div${i}`);
+                newDiv.classList.add("white");
+                container.style.gridTemplateRows = `repeat(${resetTiles}, 1fr)`
+                container.style.gridTemplateColumns = `repeat(${resetTiles}, 1fr)`
+                containerDiv.appendChild(newDiv);
+                rainbowEffect();
+            }
+        }
+
+        function hoverEffect() {
+            cells = document.querySelectorAll(".white");
+            cells.forEach((cell) => {
+                cell.addEventListener("mouseover", () => {
+                    cell.classList.remove("white");
+                    cell.classList.add("black");
+                });
+            });
+        }
+
+        function rainbowEffect() {
+            cells = document.querySelectorAll(".white");
+            cells.forEach((cell) => {
+                cell.addEventListener("mouseover", () => {
+                    let red = Math.floor(Math.random() * 256);
+                    let green = Math.floor(Math.random() * 256);
+                    let blue = Math.floor(Math.random() * 256);
+                    cell.style.background.color(`RBG(${red},${green},${blue})`);
+                    
+                });
+            });
+        }
+
+        function reset() {
+            let resetTiles = prompt("Enter the number of rows you want (Max: 12)");
+            cells.forEach((cell) => {
+                cell.classList.remove("black");
+                cell.classList.add("white");
+            });
+            cellCount = resetTiles * resetTiles;
+            console.log(cellCount);
+            gene(cellCount, resetTiles);
+
+        }
+
+        gene(cellCount, resetTiles);
+
+    </script>
+</body>
+</html>
